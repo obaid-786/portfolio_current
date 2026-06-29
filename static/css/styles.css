@@ -1,0 +1,117 @@
+/* =========================================================
+   Custom styles layered on top of Tailwind utility classes.
+   Handles glassmorphism, buttons, reveal animations, etc.
+   ========================================================= */
+
+/* ---- Glassmorphism panel ---- */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+.dark .glass {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- Buttons ---- */
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.9rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+}
+.btn-primary:hover { transform: translateY(-2px); }
+
+.btn-ghost {
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.9rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  color: #6366f1;
+  transition: background 0.2s ease;
+}
+.btn-ghost:hover { background: rgba(99, 102, 241, 0.1); }
+
+/* ---- Section titles ---- */
+.section-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- Navbar scrolled state ---- */
+#navbar.scrolled .glass { box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+.nav-link.active { color: #6366f1; font-weight: 600; }
+
+/* ---- Form inputs ---- */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(148,163,184,0.4);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border 0.2s ease;
+}
+.dark .form-input { background: rgba(30,41,59,0.6); color: #e2e8f0; }
+.form-input:focus { border-color: #6366f1; }
+
+/* ---- Contact items ---- */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.9rem;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+.contact-item:hover { transform: translateX(4px); }
+
+/* ---- Footer icons ---- */
+.footer-icon {
+  display: grid;
+  place-items: center;
+  height: 2.5rem; width: 2.5rem;
+  border-radius: 0.75rem;
+  color: #6366f1;
+  transition: transform 0.2s ease;
+}
+.footer-icon:hover { transform: translateY(-3px); }
+
+/* ---- Reveal-on-scroll animation ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ---- Typing cursor blink ---- */
+.typing-cursor {
+  color: #06b6d4;
+  font-weight: 600;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---- Reduced motion accessibility ---- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-float { animation: none; }
+}

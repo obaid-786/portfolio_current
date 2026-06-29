@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- ================= NAVBAR ================= -->
+<header id="navbar"
+        class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+  <nav class="mx-auto max-w-6xl px-4">
+    <div class="mt-3 flex items-center justify-between rounded-2xl glass px-5 py-3">
+      <a href="#hero" class="text-lg font-extrabold tracking-tight">
+        <span class="text-brand">O</span>baidullah<span class="text-accent">.</span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="hidden md:flex items-center gap-6 text-sm font-medium">
+        {% for item in ["about","skills","experience","projects","certifications","contact"] %}
+        <li>
+          <a href="#{{ item }}"
+             class="nav-link capitalize text-slate-600 dark:text-slate-300 hover:text-brand transition">
+            {{ item }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <!-- Dark/light toggle -->
+        <button id="theme-toggle" aria-label="Toggle theme"
+                class="grid h-9 w-9 place-items-center rounded-lg glass hover:scale-105 transition">
+          <i data-lucide="moon" class="dark:hidden h-5 w-5"></i>
+          <i data-lucide="sun" class="hidden dark:block h-5 w-5"></i>
+        </button>
+
+        <!-- Mobile menu button -->
+        <button id="menu-btn" aria-label="Open menu"
+                class="md:hidden grid h-9 w-9 place-items-center rounded-lg glass">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden mt-2 rounded-2xl glass p-4">
+      <ul class="flex flex-col gap-3 text-sm font-medium">
+        {% for item in ["about","skills","experience","projects","certifications","contact"] %}
+        <li><a href="#{{ item }}" class="mobile-link block capitalize py-1">{{ item }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="hero" class="relative flex min-h-screen items-center pt-28 pb-16">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-2">
+    <!-- Text -->
+    <div class="reveal">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">Hello, I'm</p>
+      <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+        {{ hero.name }}
+      </h1>
+      <h2 class="mt-3 text-lg font-medium text-slate-500 dark:text-slate-400 sm:text-xl">
+        <span id="typing" class="text-accent font-semibold"></span><span class="typing-cursor">|</span>
+      </h2>
+      <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">{{ hero.title }}</p>
+      <p class="mt-6 max-w-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+        {{ hero.intro }}
+      </p>
+
+      <!-- Hero buttons -->
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/static/resume/resume.pdf" download
+           class="btn-primary inline-flex items-center gap-2">
+          <i data-lucide="download" class="h-4 w-4"></i> Download Resume
+        </a>
+        <a href="#contact" class="btn-ghost inline-flex items-center gap-2">
+          <i data-lucide="mail" class="h-4 w-4"></i> Contact Me
+        </a>
+        <a href="#projects" class="btn-ghost inline-flex items-center gap-2">
+          <i data-lucide="folder-git-2" class="h-4 w-4"></i> View Projects
+        </a>
+      </div>
+    </div>
+
+    <!-- Profile picture placeholder -->
+    <div class="flex justify-center reveal">
+      <div class="relative">
+        <div class="absolute -inset-4 rounded-full bg-gradient-to-tr from-brand to-accent opacity-30 blur-2xl"></div>
+        <div class="relative h-60 w-60 sm:h-72 sm:w-72 animate-float overflow-hidden rounded-full
+                    border-4 border-white/40 dark:border-white/10 glass">
+          <!-- Replace src with your real photo at /static/img/profile.jpg -->
+          <img src="/static/img/profile.jpg" alt="Obaidullah Siddiqui"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+               class="h-full w-full object-cover" />
+          <div class="hidden h-full w-full items-center justify-center text-6xl font-extrabold text-brand">
+            OS
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <h2 class="section-title">About Me</h2>
+    <div class="grid gap-10 md:grid-cols-2 items-center">
+      <p class="text-slate-600 dark:text-slate-300 leading-relaxed reveal">{{ about.text }}</p>
+
+      <!-- Animated statistics cards -->
+      <div class="grid grid-cols-2 gap-4 reveal">
+        {% for stat in about.stats %}
+        <div class="glass rounded-2xl p-6 text-center">
+          {% if stat.is_text %}
+            <div class="text-2xl font-extrabold text-brand">{{ stat.text }}</div>
+          {% else %}
+            <div class="text-3xl font-extrabold text-brand">
+              <span class="counter" data-target="{{ stat.value }}">0</span>{{ stat.suffix }}
+            </div>
+          {% endif %}
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ stat.label }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills" class="py-24 bg-slate-100/50 dark:bg-slate-900/30">
+  <div class="mx-auto max-w-6xl px-4">
+    <h2 class="section-title">Skills</h2>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {% for skill in skills %}
+      <div class="glass rounded-2xl p-6 reveal hover:-translate-y-1 transition">
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-brand/10 text-brand">
+          <i data-lucide="{{ skill.icon }}" class="h-5 w-5"></i>
+        </div>
+        <h3 class="font-semibold">{{ skill.category }}</h3>
+        <div class="mt-3 flex flex-wrap gap-2">
+          {% for item in skill.items %}
+          <span class="rounded-full bg-slate-200/70 dark:bg-slate-800 px-3 py-1 text-xs">{{ item }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section id="experience" class="py-24">
+  <div class="mx-auto max-w-4xl px-4">
+    <h2 class="section-title">Experience</h2>
+    <div class="relative border-l-2 border-brand/30 pl-8 space-y-10">
+      {% for exp in experience %}
+      <div class="reveal relative">
+        <span class="absolute -left-[41px] grid h-6 w-6 place-items-center rounded-full bg-brand text-white">
+          <i data-lucide="briefcase" class="h-3 w-3"></i>
+        </span>
+        <div class="glass rounded-2xl p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="font-semibold">{{ exp.role }}</h3>
+            <span class="text-xs text-brand font-medium">{{ exp.period }}</span>
+          </div>
+          <p class="text-sm text-slate-500 dark:text-slate-400">{{ exp.company }}</p>
+          <ul class="mt-3 list-disc pl-5 text-sm text-slate-600 dark:text-slate-300 space-y-1">
+            {% for point in exp.points %}<li>{{ point }}</li>{% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Education -->
+    <h2 class="section-title mt-20">Education</h2>
+    {% for edu in education %}
+    <div class="glass rounded-2xl p-6 reveal">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3 class="font-semibold">{{ edu.institution }}</h3>
+        <span class="text-xs text-brand font-medium">{{ edu.period }}</span>
+      </div>
+      <p class="text-sm text-slate-500 dark:text-slate-400">{{ edu.degree }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects" class="py-24 bg-slate-100/50 dark:bg-slate-900/30">
+  <div class="mx-auto max-w-6xl px-4">
+    <h2 class="section-title">Projects</h2>
+
+    <!-- Filter buttons -->
+    <div class="mb-8 flex flex-wrap justify-center gap-2 reveal">
+      {% for cat in project_categories %}
+      <button class="filter-btn rounded-full px-4 py-1.5 text-sm font-medium transition
+                     {% if cat.id == 'all' %}bg-brand text-white{% else %}glass{% endif %}"
+              data-filter="{{ cat.id }}">{{ cat.label }}</button>
+      {% endfor %}
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {% for project in projects %}
+      <article class="project-card glass rounded-2xl p-6 flex flex-col reveal hover:-translate-y-1 transition"
+               data-category="{{ project.category }}">
+        <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-accent/10 text-accent">
+          <i data-lucide="folder-git-2" class="h-5 w-5"></i>
+        </div>
+        <h3 class="font-semibold">{{ project.title }}</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 flex-1">{{ project.description }}</p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          {% for t in project.tech %}
+          <span class="rounded-full bg-slate-200/70 dark:bg-slate-800 px-2.5 py-1 text-[11px]">{{ t }}</span>
+          {% endfor %}
+        </div>
+        <div class="mt-5 flex gap-3">
+          {% if project.github %}
+          <a href="{{ project.github }}" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline">
+            <i data-lucide="github" class="h-4 w-4"></i> Code
+          </a>
+          {% endif %}
+          {% if project.demo %}
+          <a href="{{ project.demo }}" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline">
+            <i data-lucide="external-link" class="h-4 w-4"></i> Live Demo
+          </a>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATIONS ================= -->
+<section id="certifications" class="py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <h2 class="section-title">Certifications</h2>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {% for cert in certifications %}
+      <div class="glass rounded-2xl p-6 reveal hover:-translate-y-1 transition">
+        <div class="mb-3 grid h-10 w-10 place-items-center rounded-xl bg-brand/10 text-brand">
+          <i data-lucide="award" class="h-5 w-5"></i>
+        </div>
+        <h3 class="font-semibold text-sm">{{ cert.title }}</h3>
+        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+          {{ cert.issuer }}{% if cert.date %} • {{ cert.date }}{% endif %}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Achievements -->
+    <h2 class="section-title mt-20">Achievements</h2>
+    <div class="grid gap-5 sm:grid-cols-3">
+      {% for ach in achievements %}
+      <div class="glass rounded-2xl p-6 reveal">
+        <i data-lucide="trophy" class="h-6 w-6 text-accent mb-3"></i>
+        <p class="text-sm text-slate-600 dark:text-slate-300">{{ ach }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="py-24 bg-slate-100/50 dark:bg-slate-900/30">
+  <div class="mx-auto max-w-5xl px-4">
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="grid gap-10 md:grid-cols-2">
+      <!-- Contact info -->
+      <div class="space-y-4 reveal">
+        <a href="mailto:{{ contact.email }}" class="contact-item">
+          <i data-lucide="mail" class="h-5 w-5 text-brand"></i> {{ contact.email }}
+        </a>
+        <a href="tel:{{ contact.phone }}" class="contact-item">
+          <i data-lucide="phone" class="h-5 w-5 text-brand"></i> {{ contact.phone }}
+        </a>
+        <a href="{{ contact.linkedin }}" target="_blank" rel="noopener" class="contact-item">
+          <i data-lucide="linkedin" class="h-5 w-5 text-brand"></i> LinkedIn
+        </a>
+        <a href="{{ contact.github }}" target="_blank" rel="noopener" class="contact-item">
+          <i data-lucide="github" class="h-5 w-5 text-brand"></i> GitHub
+        </a>
+      </div>
+
+      <!-- Contact form -->
+      <form id="contact-form" class="glass rounded-2xl p-6 space-y-4 reveal">
+        <input name="name" type="text" placeholder="Your Name" required
+               class="form-input" />
+        <input name="email" type="email" placeholder="Your Email" required
+               class="form-input" />
+        <input name="subject" type="text" placeholder="Subject" required
+               class="form-input" />
+        <textarea name="message" rows="4" placeholder="Your Message" required
+                  class="form-input resize-none"></textarea>
+        <button type="submit" id="submit-btn" class="btn-primary w-full justify-center inline-flex items-center gap-2">
+          <i data-lucide="send" class="h-4 w-4"></i> Send Message
+        </button>
+        <p id="form-status" class="text-sm text-center hidden"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t border-slate-200/50 dark:border-slate-800 py-10">
+  <div class="mx-auto max-w-6xl px-4 flex flex-col items-center gap-4 text-center">
+    <div class="flex gap-4">
+      <a href="{{ contact.github }}" target="_blank" rel="noopener" aria-label="GitHub" class="footer-icon">
+        <i data-lucide="github" class="h-5 w-5"></i>
+      </a>
+      <a href="{{ contact.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-icon">
+        <i data-lucide="linkedin" class="h-5 w-5"></i>
+      </a>
+      <a href="mailto:{{ contact.email }}" aria-label="Email" class="footer-icon">
+        <i data-lucide="mail" class="h-5 w-5"></i>
+      </a>
+    </div>
+    <p class="text-sm text-slate-500 dark:text-slate-400">
+      © <span id="year"></span> Obaidullah Siddiqui. Built with FastAPI & Tailwind CSS.
+    </p>
+  </div>
+</footer>
+
+{% endblock %}

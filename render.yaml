@@ -1,0 +1,36 @@
+# Render Blueprint — deploys the portfolio as a single web service.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: obaidullah-portfolio
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.4"
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: SITE_URL
+        sync: false        # set this to your final Render URL
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false        # set in Render dashboard
+      - key: SMTP_PASSWORD
+        sync: false        # set in Render dashboard (Gmail App Password)
+      - key: SMTP_FROM
+        sync: false
+      - key: CONTACT_RECIPIENT
+        value: obaidsid0@gmail.com
+      - key: EMAIL_ENABLED
+        value: "true"

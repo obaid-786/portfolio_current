@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============ SEO METADATA ============ -->
+  <title>{% block title %}Obaidullah Siddiqui — Software Developer{% endblock %}</title>
+  <meta name="description"
+        content="Obaidullah Siddiqui — Software Developer specializing in FastAPI, Backend Development, AI, Machine Learning, and IoT systems." />
+  <meta name="author" content="Obaidullah Siddiqui" />
+  <meta name="keywords"
+        content="Obaidullah Siddiqui, Software Developer, FastAPI, Python, Backend Developer, AI Engineer, IoT Developer, Machine Learning, Portfolio" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="{{ site_url }}" />
+
+  <!-- ============ OPEN GRAPH ============ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Obaidullah Siddiqui — Software Developer" />
+  <meta property="og:description"
+        content="Backend, AI/ML & IoT developer building scalable real-world solutions." />
+  <meta property="og:url" content="{{ site_url }}" />
+  <meta property="og:image" content="{{ site_url }}/static/img/profile.jpg" />
+
+  <!-- ============ TWITTER CARD ============ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Obaidullah Siddiqui — Software Developer" />
+  <meta name="twitter:description"
+        content="Backend, AI/ML & IoT developer building scalable real-world solutions." />
+  <meta name="twitter:image" content="{{ site_url }}/static/img/profile.jpg" />
+
+  <!-- ============ FAVICON ============ -->
+  <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- Tailwind CSS via CDN (config inlined below) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind runtime config: enable class-based dark mode + custom theme.
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: "#6366f1", dark: "#4f46e5" },
+            accent: "#06b6d4",
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+          },
+          animation: {
+            "fade-in": "fadeIn 0.8s ease forwards",
+            "float": "float 6s ease-in-out infinite",
+          },
+          keyframes: {
+            fadeIn: { "0%": { opacity: 0 }, "100%": { opacity: 1 } },
+            float: {
+              "0%,100%": { transform: "translateY(0)" },
+              "50%": { transform: "translateY(-12px)" },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom stylesheet -->
+  <link rel="stylesheet" href="/static/css/styles.css" />
+
+  <!-- ============ JSON-LD STRUCTURED DATA (SEO) ============ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Obaidullah Siddiqui",
+    "jobTitle": "Software Developer",
+    "url": "{{ site_url }}",
+    "sameAs": [
+      "{{ contact.github if contact else '' }}",
+      "{{ contact.linkedin if contact else '' }}"
+    ]
+  }
+  </script>
+
+  {% block head_extra %}{% endblock %}
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased transition-colors duration-300">
+
+  <!-- Loading screen -->
+  <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950">
+    <div class="flex flex-col items-center gap-4">
+      <div class="h-14 w-14 rounded-full border-4 border-brand border-t-transparent animate-spin"></div>
+      <p class="text-slate-400 text-sm tracking-widest uppercase">Loading…</p>
+    </div>
+  </div>
+
+  <!-- Scroll progress indicator -->
+  <div id="scroll-progress"
+       class="fixed top-0 left-0 z-[60] h-1 w-0 bg-gradient-to-r from-brand to-accent"></div>
+
+  <!-- Animated particle background -->
+  <canvas id="bg-particles" class="fixed inset-0 -z-10 pointer-events-none"></canvas>
+
+  {% block content %}{% endblock %}
+
+  <!-- Scroll-to-top button -->
+  <button id="scroll-top"
+          aria-label="Scroll to top"
+          class="fixed bottom-6 right-6 z-50 hidden h-12 w-12 items-center justify-center rounded-full
+                 bg-brand text-white shadow-lg shadow-brand/40 transition hover:scale-110">
+    <i data-lucide="arrow-up"></i>
+  </button>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
